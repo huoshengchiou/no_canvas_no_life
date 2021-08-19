@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <canvas id="canvas-1"></canvas>
+    <script>
+      const canvas = document.querySelector("#canvas-1");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      //修正particle位置
+      const adjustX = 0;
+      const adjustY = 0;
+      let particleArr = [];
+      const mouse = {
+        x: null,
+        y: null,
+        radius: 150,
+      };
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+      });
+      //default為black
+      ctx.fillStyle = "white";
+      ctx.font = "20px Verdana";
+      //string,x,y
+      ctx.fillText("A", 0, 30);
+      //   ctx.strokeStyle = "white";
+      //   ctx.strokeRect(0, 0, 100, 100);
+
+      //從canvas內容萃取每個pixel的組成
+      const textRelative = ctx.getImageData(0, 0, 100, 100);
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.size = 3;
+          //原來的位置
+          this.baseX = this.x;
+          this.baseY = this.y;
+          this.density = Math.random() * 3 + 1;
+        }
+        draw() {
+          ctx.fillStyle = "white";
+          //clear path
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          //完成構圖後的句點
+          ctx.closePath();
+          //填滿
+          ctx.fill();
+        }
+        update() {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          // particle與mouse距離
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          //引力大小跟滑鼠距離成正比
+          //引力比例
+          let forceDX = dx / distance;
+          let forceDY = dy / distance;
+          let maxDistance = mouse.radius;
+          //引力單位
+          let force = (maxDistance - distance) / maxDistance;
+          //根據引力的位移距離
+          let directionX = forceDX * force * this.density;
+          let directionY = forceDY * force * this.density;
+
+          if (distance < mouse.radius) {
+            //接近滑鼠被推開
+            this.x -= directionX;
+            this.y -= directionY;
+            return;
+          }
+          //超出mouse的圓周範圍，校正回init位置
+          if (this.x !== this.baseX) {
+            let dx = this.x - this.baseX;
+            this.x -= dx / 10;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.y - this.baseY;
+            this.y -= dy / 10;
+          }
+        }
+      }
+      const init = () => {
+        particleArr = [];
+        // particleArr.push(new Particle(50, 50));
+        // particleArr.push(new Particle(80, 50));
+        // for (let i = 0; i < 300; i++) {
+        //   let x = Math.random() * canvas.width;
+        //   let y = Math.random() * canvas.height;
+        //   particleArr.push(new Particle(x, y));
+        // }
+        for (let y = 0, y2 = textRelative.height; y < y2; y++) {
+          for (let x = 0, x2 = textRelative.width; x < x2; x++) {
+            if (textRelative.data[y * 4 * textRelative.width + x * 4 + 3] > 128) {
+              let positionX = x + adjustX;
+              let positionY = y + adjustY;
+              particleArr.push(new Particle(positionX * 20, positionY * 20));
+            }
+          }
+        }
+      };
+      init();
+      const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particleArr.length; i++) {
+          particleArr[i].draw();
+          particleArr[i].update();
+        }
+        connect();
+        requestAnimationFrame(animate);
+      };
+      animate();
+
+      function connect() {
+        let opacityVal = 1;
+        for (let a = 0; a < particleArr.length; a++) {
+          for (let b = a; b < particleArr.length; b++) {
+            // let dx = mouse.x - this.x;
+            // let dy = mouse.y - this.y;
+            // let distance = Math.sqrt(dx * dx + dy * dy);
+            let dx = particleArr[a].x - particleArr[b].x;
+            let dy = particleArr[a].y - particleArr[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 50) {
+              opacityVal = 1 - distance / 50;
+              ctx.strokeStyle = `rgba(255,255,255,${opacityVal})`;
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.moveTo(particleArr[a].x, particleArr[a].y);
+              ctx.lineTo(particleArr[b].x, particleArr[b].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
