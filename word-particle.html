@@ -92,6 +92,7 @@
           }
         }
       }
+      //particle factory
       const init = () => {
         particleArr = [];
         // particleArr.push(new Particle(50, 50));
@@ -101,11 +102,14 @@
         //   let y = Math.random() * canvas.height;
         //   particleArr.push(new Particle(x, y));
         // }
+        // row by row read，cycle through  all pixel 255=>opacity=1
         for (let y = 0, y2 = textRelative.height; y < y2; y++) {
           for (let x = 0, x2 = textRelative.width; x < x2; x++) {
+            //128 為確認opacity 50% 只有超過50%才會被particle取代
             if (textRelative.data[y * 4 * textRelative.width + x * 4 + 3] > 128) {
               let positionX = x + adjustX;
               let positionY = y + adjustY;
+              //依據像素資料再透過比例放大
               particleArr.push(new Particle(positionX * 20, positionY * 20));
             }
           }
@@ -113,6 +117,7 @@
       };
       init();
       const animate = () => {
+        //上一個frame clean up
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particleArr.length; i++) {
           particleArr[i].draw();
@@ -126,6 +131,7 @@
       function connect() {
         let opacityVal = 1;
         for (let a = 0; a < particleArr.length; a++) {
+          // 重覆跑兩次arr，再次評估每個particle的間距
           for (let b = a; b < particleArr.length; b++) {
             // let dx = mouse.x - this.x;
             // let dy = mouse.y - this.y;
@@ -138,7 +144,9 @@
               ctx.strokeStyle = `rgba(255,255,255,${opacityVal})`;
               ctx.lineWidth = 2;
               ctx.beginPath();
+              //起點
               ctx.moveTo(particleArr[a].x, particleArr[a].y);
+              //終點
               ctx.lineTo(particleArr[b].x, particleArr[b].y);
               ctx.stroke();
             }
