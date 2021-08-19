@@ -7,10 +7,15 @@
 body {
   overflow: hidden;
   background: black;
+  position: relative;
 }
 
 canvas {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 40vh;
+  left: 40vw;
+  border: 1px solid white;
+}
+
+.center-box {
 }
