@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        background: black;
+        color: white;
+        overflow-x: hidden;
+      }
+      section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 400px;
+        padding: 100px 20vw;
+      }
+      .curve {
+        position: absolute;
+        height: 225px;
+        width: 100%;
+        bottom: 0;
+      }
+      .teal {
+        background: teal;
+      }
+      .curve::before {
+        content: "";
+        display: block;
+        position: absolute;
+        border-radius: 100% 50%;
+        width: 55%;
+        height: 100%;
+        background: black;
+        transform: translate(85%, 60%);
+      }
+      .curve::after {
+        content: "";
+        display: block;
+        position: absolute;
+        border-radius: 100% 50%;
+        width: 55%;
+        height: 100%;
+        background: teal;
+        transform: translate(-4%, 40%);
+        z-index: -1;
+      }
+      .spacer {
+        aspect-ratio: 900/600;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      .layer1 {
+        background-image: url("./layered-waves-haikei.svg");
+      }
+      .blob-motion {
+        position: absolute;
+        transform: translateY(-20%);
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
+  </head>
+  <body>
+    section*8>(h1>{Nice Curves})+p>lorem
+
+    <section class="teal">
+      <h1>Nice Cureves</h1>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem sunt dolorum ipsum dicta et, vitae sint
+        illo neque iste hic, ipsa ex, quis dolore. Consectetur provident qui vitae ab adipisci.
+      </p>
+      <div class="curve"></div>
+    </section>
+    <section>
+      <h1>Nice Cureves</h1>
+      <p>
+        Ducimus reprehenderit, dolore inventore recusandae ullam sapiente quam, sit culpa nulla dolorem iusto aut!
+        Placeat molestiae in, autem vitae itaque id rerum quia possimus sunt corporis. Quia explicabo quo culpa!
+      </p>
+    </section>
+    <section>
+      <h1>Nice Cureves</h1>
+      <p>
+        Assumenda dolorem delectus ipsam, minima ad repudiandae. Laborum tempora quo repellendus eligendi modi quod
+        nesciunt quos expedita possimus, doloribus saepe quisquam et veritatis quam ullam neque voluptatem vero eveniet
+        sunt?
+      </p>
+    </section>
+    <section>
+      <h1>Nice Cureves pink</h1>
+      <p>
+        Odio iste illum laudantium quos, blanditiis tempora autem hic distinctio, temporibus, tempore voluptate
+        accusamus. Cupiditate esse nam, sequi placeat eveniet, nemo nesciunt magnam, omnis tenetur recusandae provident
+        perferendis consequuntur impedit?
+      </p>
+      <svg
+        id="visual"
+        viewBox="0 0 900 600"
+        width="900"
+        height="600"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+      >
+        <g transform="translate(499.74965172115753 262.6765946988889)">
+          <path
+            id="blob1"
+            d="M114.8 -111.3C143.3 -86.3 157.1 -43.1 159.5 2.4C161.8 47.8 152.7 95.7 124.2 145.5C95.7 195.4 47.8 247.2 0 247.2C-47.8 247.2 -95.7 195.4 -145.7 145.5C-195.7 95.7 -247.8 47.8 -257.6 -9.8C-267.4 -67.4 -234.8 -134.8 -184.8 -159.8C-134.8 -184.8 -67.4 -167.4 -12.1 -155.3C43.1 -143.1 86.3 -136.3 114.8 -111.3"
+            fill="#BB004B"
+          ></path>
+        </g>
+        <g transform="translate(422.44765462921305 295.85274475196445)" style="visibility: hidden">
+          <path
+            id="blob2"
+            d="M120.5 -120.7C170.4 -70.7 234.7 -35.4 243.2 8.5C251.7 52.3 204.3 104.7 154.5 151C104.7 197.3 52.3 237.7 -9 246.6C-70.2 255.6 -140.5 233.1 -170.1 186.8C-199.8 140.5 -188.9 70.2 -176.1 12.8C-163.2 -44.5 -148.4 -89.1 -118.8 -139.1C-89.1 -189.1 -44.5 -244.5 -4.6 -240C35.4 -235.4 70.7 -170.7 120.5 -120.7"
+            fill="#BB004B"
+          ></path>
+        </g>
+      </svg>
+    </section>
+    <section>
+      <h1>Nice Cureves 123</h1>
+      <p>
+        Reprehenderit recusandae dignissimos sunt, quidem doloremque quisquam maxime, asperiores deleniti, tempore
+        numquam corrupti minima omnis quae perspiciatis nam. Eius quisquam corporis nulla minus perferendis corrupti
+        ipsa ex tempora delectus numquam?
+      </p>
+      <div class="spacer layer1"></div>
+    </section>
+    <section>
+      <h1>Nice Cureves</h1>
+      <p>
+        Porro est cupiditate tenetur itaque aperiam, nihil veniam quia, dicta nisi similique perspiciatis! Voluptatem
+        quasi ipsa quod laborum, saepe consectetur dolorum ullam, corporis ex autem veritatis dolorem! Quia, fugiat
+        voluptatum?
+      </p>
+    </section>
+    <section>
+      <h1>Nice Cureves</h1>
+      <p>
+        Architecto praesentium maiores consequuntur sapiente quos officia, recusandae, odio corrupti inventore animi
+        quidem sed, nisi quibusdam ducimus. Vero cupiditate dolorum odit nemo alias aspernatur cum consequuntur delectus
+        quas, sed sit.
+      </p>
+    </section>
+    <section>
+      <h1>Nice Cureves</h1>
+      <p>
+        Id facere laborum rem quia accusantium vitae in, cumque repudiandae, ab corporis dolorem quas hic omnis tempora
+        error. Dolore quas magnam itaque aut debitis commodi quasi totam velit error repellendus.
+      </p>
+    </section>
+    <script>
+      const tween = KUTE.fromTo(
+        "#blob1",
+        { path: "#blob1" },
+        { path: "#blob2" },
+        { repeat: 999, duration: 3000, yoyo: true }
+      );
+      tween.start();
+    </script>
+  </body>
+</html>
